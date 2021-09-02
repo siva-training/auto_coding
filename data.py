@@ -52,12 +52,16 @@ class SrcCodeDataset(Dataset):
         with open(file_path) as f:
             for line in tqdm(f):
                 example = json.loads(line.strip())
-                if example["label"].lower() == "python":
+                if example["label"].lower() == "aws":
                     encoded_plus = model.tokenizer.encode_plus(
-                        model.tokenize("<python>") + example["token_ids"] + [model.eos_token_id],
+                        model.tokenize("<aws>") + example["token_ids"] + [model.eos_token_id],
                         max_length=model.max_seq_length)
-                elif example["label"].lower() == "java":
+                elif example["label"].lower() == "azure":
                     encoded_plus = model.tokenizer.encode_plus(
-                        model.tokenize("<java>") + example["token_ids"] + [model.eos_token_id],
+                        model.tokenize("<azure>") + example["token_ids"] + [model.eos_token_id],
+                        max_length=model.max_seq_length)
+                elif example["label"].lower() == "gcp":
+                    encoded_plus = model.tokenizer.encode_plus(
+                        model.tokenize("<gcp>") + example["token_ids"] + [model.eos_token_id],
                         max_length=model.max_seq_length)
                 self.inputs.append(encoded_plus.data)
