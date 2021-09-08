@@ -157,3 +157,32 @@ private static int CountCharacters(String str) {
 
 ### Extra notes
 * For mutli-GPU training, it only works when torch==1.4.0. It will be not working when torch==1.5.0. No idea so far how to fix this issue.
+
+## Install notes
+
+Install python packages using root
+
+```bash
+
+sudo su
+apt install python3-pip 
+pip3 install torch==1.8.2+cpu torchvision==0.9.2+cpu torchaudio===0.8.2 -f https://download.pytorch.org/whl/lts/1.8/torch_lts.html
+pip install -r requirements.txt
+pip install tensorboardX
+
+```
+
+# create teraform dataset
+
+```bash 
+cd datasset
+sudo python3 convert.py --segment_len 256 --stride 10 --dev_size 0.1
+```
+
+# train on the new dataset
+
+```bash
+cd ..
+sudo python3 train.py --model_select distilgpt2
+```
+
